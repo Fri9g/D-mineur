@@ -1,0 +1,42 @@
+﻿<?xml version="1.0"?>
+<project name="Demineur" default="build">
+
+	
+	<path id="test.classpath">
+	  <pathelement location="bin" />
+	  <pathelement location="lib/junit-4.12.jar" />
+	  <fileset dir="lib">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>
+	
+    <target name="clean" description="supprime les fichiers .class">
+        <delete dir="bin"/>
+    </target>
+
+    <target name="build" description="compile le programme">
+    	<mkdir dir="bin"/>
+    	<mkdir dir="saves"/>
+    	<javac srcdir="src" destdir="bin" classpath="lib/junit-4.12.jar" includeantruntime="false">
+    	</javac>
+    </target>
+	
+    <target name="run" depends="build" description="execute le programme">
+		<java classname = "DemineurStart" classpath ="bin" fork="true"/> 
+    </target>
+
+	<target name="stat" depends="build">
+		<java classname = "MainStat" classpath ="bin" fork="true"/> 
+	</target>
+	
+    <target name="test" depends="build" description="lance les tests unites">
+    	<junit fork="yes" haltonfailure="yes">
+    	  <test name="MyTest" />
+    	  <formatter type="plain" usefile="false" />
+    	  <classpath refid="test.classpath" />
+    	</junit>
+    </target>
+</project>
+    
+    
+    
